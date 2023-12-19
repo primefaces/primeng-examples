@@ -1,154 +1,104 @@
 <div class="main-wrapper">
-  <div class="main-container">
-    <div class="hero-section">
-      <div class="logo">
-        <img src="./assets/icon-primeng.svg" alt="logo" />
-        <img src="./assets/text-primeng.svg" alt="logo-text" />
-      </div>
-      <div class="hero-content">
-        <h1>Start your next project with powerful PrimeNG</h1>
-        <span
-          >We strongly advise you to explore the
-          <a
-            href="https://primeng.org/configuration/"
-            target="_blank"
-            class="doc-text"
-            >PrimeNG documentation</a
-          >
-          to enhance your skills.</span
-        >
-      </div>
-    </div>
-
-    <div class="grid-section">
-      <div id="components" class="card forms">
-        <div class="form-wrapper">
-          <span class="p-float-label form-input-wrapper">
-            <input id="username" type="text" pInputText class="form-input" />
-            <label for="username">Username</label>
-          </span>
-          <button
-            pButton
-            pRipple
-            class="form-button p-button-sm"
-            label="Button"
-          ></button>
+    <div class="main-container">
+        <div class="hero-section">
+            <div class="logo">
+                <img src="./assets/icon-primeng.svg" alt="logo" />
+                <img src="./assets/text-primeng.svg" alt="logo-text" />
+            </div>
+            <div class="hero-content">
+                <h1>Start your next project with powerful PrimeNG</h1>
+                <span>We strongly advise you to explore the
+                    <a href="https://primeng.org/configuration/" target="_blank" class="doc-text">PrimeNG
+                        documentation</a>
+                    to enhance your skills.</span>
+            </div>
         </div>
 
-        <a
-          href="https://primeng.org/installation"
-          target="_blank"
-          class="card-footer-link"
-        >
-          <span>Components</span>
-          <i class="pi pi-arrow-right"></i>
-        </a>
-      </div>
+        <div class="grid-section">
+            <div id="components" class="card forms">
+                <div class="form-wrapper">
+                    <span class="p-float-label form-input-wrapper">
+                        <input id="username" type="text" pInputText class="form-input" />
+                        <label for="username">Username</label>
+                    </span>
+                    <button pButton pRipple class="form-button p-button-sm" label="Button"></button>
+                </div>
 
-      <div class="card primeland">
-        <a href="https://discord.gg/j2DQFtPD8z" target="_blank">
-          <img src="./assets/primeland.svg" alt="primeland" />
-        </a>
-      </div>
+                <a href="https://primeng.org/installation" target="_blank" class="card-footer-link">
+                    <span>Components</span>
+                    <i class="pi pi-arrow-right"></i>
+                </a>
+            </div>
 
-      <div class="card discussions">
-        <a
-          href="https://github.com/orgs/primefaces/discussions"
-          target="_blank"
-        >
-          <img src="./assets/discussions.svg" alt="primeland" />
-        </a>
-      </div>
+            <div class="card primeland">
+                <a href="https://discord.gg/j2DQFtPD8z" target="_blank">
+                    <img src="./assets/primeland.svg" alt="primeland" />
+                </a>
+            </div>
 
-      <div class="card github">
-        <div class="github-wrapper" (mouseenter)="startAnimation()">
-          <img src="./assets/github.svg" alt="github" />
-          <div #charging class="stars" style="display: flex; gap: 1.5rem"></div>
+            <div class="card discussions">
+                <a href="https://github.com/orgs/primefaces/discussions" target="_blank">
+                    <img src="./assets/discussions.svg" alt="primeland" />
+                </a>
+            </div>
+
+            <div class="card github">
+                <div class="github-wrapper" (mouseenter)="startAnimation()">
+                    <img src="./assets/github.svg" alt="github" />
+                    <div #charging class="stars" style="display: flex; gap: 1.5rem"></div>
+                </div>
+                <a href="https://github.com/primefaces/primeng" target="_blank" class="card-footer-link">
+                    <span>Please star PrimeNG on GitHub</span>
+                    <i class="pi pi-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="card templates">
+                <img src="./assets/primetemplates.png" alt="prime-template" class="box-image" />
+                <a href="https://primeng.org/templates/" target="_blank" class="card-footer-link">
+                    <span>Vue Templates Powered by PrimeVue</span>
+                    <i class="pi pi-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="card blocks">
+                <img src="./assets/primeblocks.png" alt="prime-template" class="box-image" />
+
+                <a href="https://blocks.primeng.org/" target="_blank" class="card-footer-link">
+                    <span>400+ Ready to Use UI Blocks</span>
+                    <i class="pi pi-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="card primeone">
+                <img src="./assets/primeone.png" alt="prime-template" class="box-image" />
+                <a href="https://primeng.org/uikit/" target="_blank" class="card-footer-link">
+                    <span>Figma UI Kit</span>
+                    <i class="pi pi-arrow-right"></i>
+                </a>
+            </div>
         </div>
-        <a
-          href="https://github.com/primefaces/primeng"
-          target="_blank"
-          class="card-footer-link"
-        >
-          <span>Please star PrimeNG on GitHub</span>
-          <i class="pi pi-arrow-right"></i>
-        </a>
-      </div>
-
-      <div class="card templates">
-        <img
-          src="./assets/primetemplates.png"
-          alt="prime-template"
-          class="box-image"
-        />
-        <a
-          href="https://primeng.org/templates/"
-          target="_blank"
-          class="card-footer-link"
-        >
-          <span>Vue Templates Powered by PrimeVue</span>
-          <i class="pi pi-arrow-right"></i>
-        </a>
-      </div>
-
-      <div class="card blocks">
-        <img
-          src="./assets/primeblocks.png"
-          alt="prime-template"
-          class="box-image"
-        />
-
-        <a
-          href="https://blocks.primeng.org/"
-          target="_blank"
-          class="card-footer-link"
-        >
-          <span>400+ Ready to Use UI Blocks</span>
-          <i class="pi pi-arrow-right"></i>
-        </a>
-      </div>
-
-      <div class="card primeone">
-        <img
-          src="./assets/primeone.png"
-          alt="prime-template"
-          class="box-image"
-        />
-        <a
-          href="https://primeng.org/uikit/"
-          target="_blank"
-          class="card-footer-link"
-        >
-          <span>Figma UI Kit</span>
-          <i class="pi pi-arrow-right"></i>
-        </a>
-      </div>
     </div>
-  </div>
 
-  <div class="footer">
-    <div class="footer-content">
-      <a
-        href="https://github.com/primefaces/primeng/blob/master/LICENSE.md"
-        target="_blank"
-        class="license"
-        >PrimeNG - MIT License</a
-      >
-      <a class="footer-logo">
-        <img src="./assets/icon-primeng.svg" alt="logo" />
-      </a>
+    <div class="footer">
+        <div class="footer-content">
+            <a href="https://github.com/primefaces/primeng/blob/master/LICENSE.md" target="_blank"
+                class="license">PrimeNG - MIT License</a>
+            <a class="footer-logo">
+                <img src="./assets/icon-primeng.svg" alt="logo" />
+            </a>
 
-      <div class="socials">
-        <a href="https://github.com/primefaces/primeng" target="_blank">
-          <i class="pi pi-github"></i>
-        </a>
-        <a href="https://discord.gg/j2DQFtPD8z" target="_blank">
-          <i class="pi pi-discord"></i>
-        </a>
-        <a href="https://twitter.com/prime_ng" target="_blank">
-          <i class="pi pi-twitter"></i>
-        </a>
-      </div>
+            <div class="socials">
+                <a href="https://github.com/primefaces/primeng" target="_blank">
+                    <i class="pi pi-github"></i>
+                </a>
+                <a href="https://discord.gg/j2DQFtPD8z" target="_blank">
+                    <i class="pi pi-discord"></i>
+                </a>
+                <a href="https://twitter.com/prime_ng" target="_blank">
+                    <i class="pi pi-twitter"></i>
+                </a>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
