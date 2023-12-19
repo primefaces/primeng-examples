@@ -1,0 +1,17 @@
+<div  class="flex flex-column justify-content-center align-items-center h-screen">
+  <h1>{{ 'title' | translate }}</h1>
+  <p>{{ 'description' | translate }}</p>
+  <p-dropdown [options]="supportLanguages" [(ngModel)]="selectedLanguage" (onChange)="useLang($event)"></p-dropdown>
+  <button
+    pButton
+    (click)="confirm1()"
+    icon="pi pi-check"
+    label="{{'confirm.label' | translate}}"
+    class="mt-3"
+  ></button>
+  <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+</div>
+
+
+
+<router-outlet></router-outlet>
