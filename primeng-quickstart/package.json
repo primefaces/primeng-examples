@@ -20,7 +20,7 @@
     "@primeuix/themes": "^1.2.0",
     "chart.js": "^4.4.8",
     "primeicons": "^7.0.0",
-    "primeng": "^20.0.0-rc.2",
+    "primeng": "^20",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
