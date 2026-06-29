@@ -21,7 +21,7 @@ import { Github } from '@primeicons/angular/github';
           <svg data-p-icon="twitter" class="footer-icon"></svg>
         </a>
         <a
-          href="https://primeng.org"
+          href="https://primeng.dev/"
           target="_blank"
           rel="noopener noreferrer"
           class="footer-link"

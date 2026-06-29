@@ -1,8 +1,13 @@
-import { Component, inject } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  effect,
+  inject,
+  PLATFORM_ID,
+} from '@angular/core';
 import { ChartModule } from 'primeng/chart';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { LayoutService } from '../../service/layout.service';
-import { debounceTime, Subscription } from 'rxjs';
 
 @Component({
   selector: 'sales-trend-widget',
@@ -24,7 +29,7 @@ import { debounceTime, Subscription } from 'rxjs';
 export class SalesTrendWidget {
     layoutService = inject(LayoutService);
 
-    subscription!: Subscription;
+    platformId = inject(PLATFORM_ID);
 
     chartData: any;
 
@@ -37,19 +42,31 @@ export class SalesTrendWidget {
         { name: 'August - December 2020', code: '1' }
     ];
 
-    constructor() {
-        this.subscription = this.layoutService.appStateUpdate$.pipe(debounceTime(25)).subscribe(() => {
-            this.initChart();
-        });
-    }
+    private chartThemeRaf: any;
+
+    constructor(private cd: ChangeDetectorRef) {}
+
+    themeEffect = effect(() => {
+        this.layoutService.appState();
+
+        if (isPlatformBrowser(this.platformId)) {
+            cancelAnimationFrame(this.chartThemeRaf);
+            this.chartThemeRaf = requestAnimationFrame(() =>
+                requestAnimationFrame(() => this.initChart())
+            );
+        }
+    });
 
     ngOnInit(){
         this.initChart();
     }
 
     initChart() {
+        if (!isPlatformBrowser(this.platformId)) {
+            return;
+        }
+
         const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
 
         this.chartData = {
             labels: ["Q1", "Q2", "Q3", "Q4"],
@@ -108,6 +125,8 @@ export class SalesTrendWidget {
                 },
             },
         };
+
+        this.cd.markForCheck();
     }
 
     changeRevenueChart(event: any) {
@@ -135,9 +154,5 @@ export class SalesTrendWidget {
             this.chartData.datasets[2].data = dataSet1[parseInt('2')];
             this.chartData.datasets[3].data = dataSet1[parseInt('3')];
         }
-    }
-
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
     }
 }

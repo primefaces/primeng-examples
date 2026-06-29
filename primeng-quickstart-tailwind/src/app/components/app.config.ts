@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { Component, computed, inject, Input, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { $t, updatePreset, updateSurfacePalette } from '@primeuix/themes';
@@ -43,7 +43,6 @@ declare type SurfacesType = {
   selector: 'app-config',
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     SelectButtonModule,
     DrawerModule,
@@ -63,19 +62,18 @@ declare type SurfacesType = {
             >Primary</span
           >
           <div class="pt-2 flex gap-2 flex-wrap justify-between">
-            <button
-              *ngFor="let pc of primaryColors()"
-              type="button"
-              [title]="pc.name"
-              [ngClass]="[
-                'border-none w-5 h-5 rounded-full p-0 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2',
-                selectedPrimaryColor() === pc.name
-                  ? 'ring-2 ring-primary ring-offset-2'
-                  : ''
-              ]"
-              [ngStyle]="{ backgroundColor: pc?.palette?.['500'] }"
-              (click)="updateColors($event, 'primary', pc)"
-            ></button>
+            @for (pc of primaryColors(); track pc.name) {
+              <button
+                type="button"
+                [title]="pc.name"
+                class="border-none w-5 h-5 rounded-full p-0 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2"
+                [class.ring-2]="selectedPrimaryColor() === pc.name"
+                [class.ring-primary]="selectedPrimaryColor() === pc.name"
+                [class.ring-offset-2]="selectedPrimaryColor() === pc.name"
+                [style.background-color]="pc?.palette?.['500']"
+                (click)="updateColors($event, 'primary', pc)"
+              ></button>
+            }
           </div>
         </div>
         <div>
@@ -84,25 +82,36 @@ declare type SurfacesType = {
             >Surface</span
           >
           <div class="pt-2 flex gap-2 flex-wrap justify-between">
-            <button
-              *ngFor="let s of surfaces"
-              type="button"
-              [title]="s.name"
-              [ngClass]="[
-                'border-none w-5 h-5 rounded-full p-0 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2',
-                (
+            @for (s of surfaces; track s.name) {
+              <button
+                type="button"
+                [title]="s.name"
+                class="border-none w-5 h-5 rounded-full p-0 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2"
+                [class.ring-2]="
                   selectedSurface()
                     ? selectedSurface() === s.name
                     : isDarkMode()
                     ? s.name === 'zinc'
                     : s.name === 'slate'
-                )
-                  ? 'ring-2 ring-primary ring-offset-2'
-                  : ''
-              ]"
-              [ngStyle]="{ backgroundColor: s?.palette?.['500'] }"
-              (click)="updateColors($event, 'surface', s)"
-            ></button>
+                "
+                [class.ring-primary]="
+                  selectedSurface()
+                    ? selectedSurface() === s.name
+                    : isDarkMode()
+                    ? s.name === 'zinc'
+                    : s.name === 'slate'
+                "
+                [class.ring-offset-2]="
+                  selectedSurface()
+                    ? selectedSurface() === s.name
+                    : isDarkMode()
+                    ? s.name === 'zinc'
+                    : s.name === 'slate'
+                "
+                [style.background-color]="s?.palette?.['500']"
+                (click)="updateColors($event, 'surface', s)"
+              ></button>
+            }
           </div>
         </div>
       </div>

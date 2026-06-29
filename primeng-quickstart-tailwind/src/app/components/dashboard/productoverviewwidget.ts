@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -97,6 +97,8 @@ interface Product {
   `
 })
 export class ProductOverviewWidget {
+  private cd = inject(ChangeDetectorRef);
+
   selectedProduct!: Product;
 
   products: Product[] = [
@@ -127,7 +129,7 @@ export class ProductOverviewWidget {
   ];
   searchQuery = '';
   loading = false;
-  filteredProducts: any = [];
+  filteredProducts: Product[] = [];
 
   ngOnInit() {
     this.filteredProducts = [...this.products];
@@ -135,16 +137,19 @@ export class ProductOverviewWidget {
 
   searchProducts = () => {
     this.loading = true;
-    this.filteredProducts = this.products.filter(
-      (product) =>
-        product.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        product.category
-          .toLowerCase()
-          .includes(this.searchQuery.toLowerCase()) ||
-        product.status.toLowerCase().includes(this.searchQuery.toLowerCase())
-    );
+    this.cd.markForCheck();
+    const query = this.searchQuery.toLowerCase();
     setTimeout(() => {
-      this.loading = false;
+      Promise.resolve().then(() => {
+        this.filteredProducts = this.products.filter(
+          (product) =>
+            product.name.toLowerCase().includes(query) ||
+            product.category.toLowerCase().includes(query) ||
+            product.status.toLowerCase().includes(query)
+        );
+        this.loading = false;
+        this.cd.markForCheck();
+      });
     }, 300);
   };
 }

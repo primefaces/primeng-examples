@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Twitter } from '@primeicons/angular/twitter';
+import { Globe } from '@primeicons/angular/globe';
+import { Github } from '@primeicons/angular/github';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, Twitter, Globe, Github],
   template: `
      <div
         class="bg-surface-0 dark:bg-surface-900 p-6 rounded-2xl max-w-7xl mx-auto border border-surface-200 dark:border-surface-700 w-full"
@@ -18,15 +21,15 @@ import { CommonModule } from '@angular/common';
                     rel="noopener noreferrer"
                     class="text-surface-600 dark:text-surface-400 hover:text-primary transition-colors text-sm"
                 >
-                    <i class="pi pi-twitter text-xl"></i>
+                    <svg data-p-icon="twitter" class="text-xl"></svg>
                 </a>
                 <a
-                    href="https://primeng.org"
+                    href="https://primeng.dev/"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="text-surface-600 dark:text-surface-400 hover:text-primary transition-colors text-sm"
                 >
-                    <i class="pi pi-globe text-xl"></i>
+                    <svg data-p-icon="globe" class="text-xl"></svg>
                 </a>
                 <a
                     href="https://github.com/primefaces/primeng"
@@ -34,7 +37,7 @@ import { CommonModule } from '@angular/common';
                     rel="noopener noreferrer"
                     class="text-surface-600 dark:text-surface-400 hover:text-primary transition-colors text-sm"
                 >
-                    <i class="pi pi-github text-xl"></i>
+                    <svg data-p-icon="github" class="text-xl"></svg>
                 </a>
             </div>
         </div>

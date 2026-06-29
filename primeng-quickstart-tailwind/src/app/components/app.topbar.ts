@@ -4,11 +4,13 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { AppConfig } from './app.config';
 import { LayoutService } from '../service/layout.service';
 import { CommonModule } from '@angular/common';
+import { PIcon } from '@primeicons/angular/p-icon';
+import { Cog } from '@primeicons/angular/cog';
 
 @Component({
   selector: 'app-topbar',
   standalone: true,
-  imports: [CommonModule, ButtonModule, StyleClassModule, AppConfig],
+  imports: [CommonModule, ButtonModule, StyleClassModule, AppConfig, PIcon, Cog],
   template: `
     <div
       class="bg-surface-0 dark:bg-surface-900 p-6 rounded-2xl max-w-7xl mx-auto border border-surface-200 dark:border-surface-700 w-full"
@@ -132,27 +134,23 @@ import { CommonModule } from '@angular/common';
             class="cursor-pointer w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-100 dark:hover:bg-surface-800 transition-all text-surface-900 dark:text-surface-0 focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-0 dark:focus-visible:ring-offset-surface-950"
             (click)="toggleDarkMode()"
           >
-            <i
-              class="pi text-base"
-              [ngClass]="{
-                'pi-moon': isDarkMode(),
-                'pi-sun': !isDarkMode()
-              }"
-            ></i>
+            <svg [pIcon]="isDarkMode() ? 'moon' : 'sun'" class="text-base"></svg>
           </button>
           <div class="relative">
-            <p-button
+            <button
+              pButton
               pStyleClass="@next"
               enterFromClass="hidden"
               enterActiveClass="animate-scalein"
               leaveToClass="hidden"
               leaveActiveClass="animate-fadeout"
               [hideOnOutsideClick]="true"
-              icon="pi pi-cog"
               text
               rounded
               aria-label="Settings"
-            />
+            >
+              <svg data-p-icon="cog"></svg>
+            </button>
             <app-config class="hidden" />
           </div>
         </div>
