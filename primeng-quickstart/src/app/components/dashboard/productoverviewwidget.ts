@@ -1,4 +1,9 @@
-import { Component, computed, inject } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  computed,
+  inject,
+} from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -56,14 +61,14 @@ interface Product {
       >
         <ng-template #header>
           <tr>
-            <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+            <th pSortableColumn="name">Name <p-sort-icon field="name" /></th>
             <th pSortableColumn="category">
-              Category <p-sortIcon field="category" />
+              Category <p-sort-icon field="category" />
             </th>
 
-            <th pSortableColumn="price">Price <p-sortIcon field="price" /></th>
+            <th pSortableColumn="price">Price <p-sort-icon field="price" /></th>
             <th pSortableColumn="status">
-              Status <p-sortIcon field="status" />
+              Status <p-sort-icon field="status" />
             </th>
           </tr>
         </ng-template>
@@ -113,6 +118,8 @@ interface Product {
 export class ProductOverviewWidget {
   layoutService = inject(LayoutService);
 
+  private cd = inject(ChangeDetectorRef);
+
   isDarkMode = computed(() => this.layoutService.appState().darkMode);
 
   selectedProduct!: Product;
@@ -147,8 +154,8 @@ export class ProductOverviewWidget {
   searchQuery = '';
 
   loading = false;
-  
-  filteredProducts: any = [];
+
+  filteredProducts: Product[] = [];
 
   ngOnInit() {
     this.filteredProducts = [...this.products];
@@ -156,16 +163,19 @@ export class ProductOverviewWidget {
 
   searchProducts = () => {
     this.loading = true;
-    this.filteredProducts = this.products.filter(
-      (product) =>
-        product.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        product.category
-          .toLowerCase()
-          .includes(this.searchQuery.toLowerCase()) ||
-        product.status.toLowerCase().includes(this.searchQuery.toLowerCase())
-    );
+    this.cd.markForCheck();
+    const query = this.searchQuery.toLowerCase();
     setTimeout(() => {
-      this.loading = false;
+      Promise.resolve().then(() => {
+        this.filteredProducts = this.products.filter(
+          (product) =>
+            product.name.toLowerCase().includes(query) ||
+            product.category.toLowerCase().includes(query) ||
+            product.status.toLowerCase().includes(query)
+        );
+        this.loading = false;
+        this.cd.markForCheck();
+      });
     }, 300);
   };
 }

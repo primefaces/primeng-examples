@@ -4,11 +4,13 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { AppConfig } from './app.config';
 import { LayoutService } from '../service/layout.service';
 import { CommonModule } from '@angular/common';
+import { PIcon } from '@primeicons/angular/p-icon';
+import { Cog } from '@primeicons/angular/cog';
 
 @Component({
   selector: 'app-topbar',
   standalone: true,
-  imports: [CommonModule, ButtonModule, StyleClassModule, AppConfig],
+  imports: [CommonModule, ButtonModule, StyleClassModule, AppConfig, PIcon, Cog],
   template: `
     <div class="topbar-container">
       <div class="topbar-brand">
@@ -117,34 +119,31 @@ import { CommonModule } from '@angular/common';
         </span>
       </div>
       <div class="topbar-actions">
-        <p-button
+        <button
+          pButton
           type="button"
           class="topbar-theme-button"
           (click)="toggleDarkMode()"
           text
           rounded
         >
-          <i
-            class="pi"
-            [ngClass]="{
-              'pi-moon': isDarkMode(),
-              'pi-sun': !isDarkMode()
-            }"
-          ></i>
-        </p-button>
+          <svg [pIcon]="isDarkMode() ? 'moon' : 'sun'"></svg>
+        </button>
         <div class="relative">
-          <p-button
+          <button
+            pButton
             pStyleClass="@next"
             enterFromClass="hidden"
             enterActiveClass="animate-scalein"
             leaveToClass="hidden"
             leaveActiveClass="animate-fadeout"
             [hideOnOutsideClick]="true"
-            icon="pi pi-cog"
             text
             rounded
             aria-label="Settings"
-          />
+          >
+            <svg data-p-icon="cog"></svg>
+          </button>
           <app-config class="hidden" />
         </div>
       </div>

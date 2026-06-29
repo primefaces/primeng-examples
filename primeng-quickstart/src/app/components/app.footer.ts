@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Twitter } from '@primeicons/angular/twitter';
+import { Globe } from '@primeicons/angular/globe';
+import { Github } from '@primeicons/angular/github';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, Twitter, Globe, Github],
   template: `
     <div class="footer-container">
       <div class="footer-copyright">202X PrimeNG.</div>
@@ -15,7 +18,7 @@ import { CommonModule } from '@angular/common';
           rel="noopener noreferrer"
           class="footer-link"
         >
-          <i class="pi pi-twitter footer-icon"></i>
+          <svg data-p-icon="twitter" class="footer-icon"></svg>
         </a>
         <a
           href="https://primeng.org"
@@ -23,7 +26,7 @@ import { CommonModule } from '@angular/common';
           rel="noopener noreferrer"
           class="footer-link"
         >
-          <i class="pi pi-globe footer-icon"></i>
+          <svg data-p-icon="globe" class="footer-icon"></svg>
         </a>
         <a
           href="https://github.com/primefaces/primeng"
@@ -31,7 +34,7 @@ import { CommonModule } from '@angular/common';
           rel="noopener noreferrer"
           class="footer-link"
         >
-          <i class="pi pi-github footer-icon"></i>
+          <svg data-p-icon="github" class="footer-icon"></svg>
         </a>
       </div>
     </div>

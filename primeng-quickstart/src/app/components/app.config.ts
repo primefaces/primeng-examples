@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { Component, computed, inject, Input, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { $t, updatePreset, updateSurfacePalette } from '@primeuix/themes';
@@ -43,7 +43,6 @@ declare type SurfacesType = {
   selector: 'app-config',
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     SelectButtonModule,
     DrawerModule,
@@ -57,41 +56,37 @@ declare type SurfacesType = {
       <div>
         <span class="config-label">Primary</span>
         <div class="config-colors">
-          <button
-            *ngFor="let pc of primaryColors()"
-            type="button"
-            [title]="pc.name"
-            [ngClass]="[
-              'color-button',
-              selectedPrimaryColor() === pc.name ? 'selected' : ''
-            ]"
-            [ngStyle]="{ backgroundColor: pc?.palette?.['500'] }"
-            (click)="updateColors($event, 'primary', pc)"
-          ></button>
+          @for (pc of primaryColors(); track pc.name) {
+            <button
+              type="button"
+              [title]="pc.name"
+              class="color-button"
+              [class.selected]="selectedPrimaryColor() === pc.name"
+              [style.background-color]="pc?.palette?.['500']"
+              (click)="updateColors($event, 'primary', pc)"
+            ></button>
+          }
         </div>
       </div>
       <div>
         <span class="config-label">Surface</span>
         <div class="config-colors">
-          <button
-            *ngFor="let s of surfaces"
-            type="button"
-            [title]="s.name"
-            [ngClass]="[
-              'color-button',
-              (
+          @for (s of surfaces; track s.name) {
+            <button
+              type="button"
+              [title]="s.name"
+              class="color-button"
+              [class.selected]="
                 selectedSurface()
                   ? selectedSurface() === s.name
                   : isDarkMode()
                   ? s.name === 'zinc'
                   : s.name === 'slate'
-              )
-                ? 'selected'
-                : ''
-            ]"
-            [ngStyle]="{ backgroundColor: s?.palette?.['500'] }"
-            (click)="updateColors($event, 'surface', s)"
-          ></button>
+              "
+              [style.background-color]="s?.palette?.['500']"
+              (click)="updateColors($event, 'surface', s)"
+            ></button>
+          }
         </div>
       </div>
     </div>

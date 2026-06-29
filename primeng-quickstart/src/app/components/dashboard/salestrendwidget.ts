@@ -1,8 +1,13 @@
-import { Component, inject } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  effect,
+  inject,
+  PLATFORM_ID,
+} from '@angular/core';
 import { ChartModule } from 'primeng/chart';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { LayoutService } from '../../service/layout.service';
-import { debounceTime, Subscription } from 'rxjs';
 
 @Component({
   selector: 'sales-trend-widget',
@@ -28,7 +33,7 @@ import { debounceTime, Subscription } from 'rxjs';
 export class SalesTrendWidget {
   layoutService = inject(LayoutService);
 
-  subscription!: Subscription;
+  platformId = inject(PLATFORM_ID);
 
   chartData: any;
 
@@ -41,21 +46,31 @@ export class SalesTrendWidget {
     { name: 'August - December 2020', code: '1' },
   ];
 
-  constructor() {
-    this.subscription = this.layoutService.appStateUpdate$
-      .pipe(debounceTime(25))
-      .subscribe(() => {
-        this.initChart();
-      });
-  }
+  private chartThemeRaf: any;
+
+  constructor(private cd: ChangeDetectorRef) {}
+
+  themeEffect = effect(() => {
+    this.layoutService.appState();
+
+    if (isPlatformBrowser(this.platformId)) {
+      cancelAnimationFrame(this.chartThemeRaf);
+      this.chartThemeRaf = requestAnimationFrame(() =>
+        requestAnimationFrame(() => this.initChart())
+      );
+    }
+  });
 
   ngOnInit() {
     this.initChart();
   }
 
   initChart() {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    const style = getComputedStyle(document.documentElement);
 
     this.chartData = {
       labels: ['Q1', 'Q2', 'Q3', 'Q4'],
@@ -63,21 +78,21 @@ export class SalesTrendWidget {
         {
           type: 'bar',
           label: 'Subscriptions',
-          backgroundColor: documentStyle.getPropertyValue('--p-primary-400'),
+          backgroundColor: style.getPropertyValue('--p-primary-400'),
           data: [4000, 10000, 15000, 4000],
           barThickness: 32,
         },
         {
           type: 'bar',
           label: 'Advertising',
-          backgroundColor: documentStyle.getPropertyValue('--p-primary-300'),
+          backgroundColor: style.getPropertyValue('--p-primary-300'),
           data: [2100, 8400, 2400, 7500],
           barThickness: 32,
         },
         {
           type: 'bar',
           label: 'Affiliate',
-          backgroundColor: documentStyle.getPropertyValue('--p-primary-200'),
+          backgroundColor: style.getPropertyValue('--p-primary-200'),
           data: [4100, 5200, 3400, 7400],
           borderRadius: {
             topLeft: 8,
@@ -114,6 +129,8 @@ export class SalesTrendWidget {
         },
       },
     };
+
+    this.cd.markForCheck();
   }
 
   changeRevenueChart(event: any) {
@@ -141,9 +158,5 @@ export class SalesTrendWidget {
       this.chartData.datasets[2].data = dataSet1[parseInt('2')];
       this.chartData.datasets[3].data = dataSet1[parseInt('3')];
     }
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

@@ -58,16 +58,16 @@ interface Product {
         >
           <ng-template #header>
             <tr>
-              <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+              <th pSortableColumn="name">Name <p-sort-icon field="name" /></th>
               <th pSortableColumn="category">
-                Category <p-sortIcon field="category" />
+                Category <p-sort-icon field="category" />
               </th>
 
               <th pSortableColumn="price">
-                Price <p-sortIcon field="price" />
+                Price <p-sort-icon field="price" />
               </th>
               <th pSortableColumn="status">
-                Status <p-sortIcon field="status" />
+                Status <p-sort-icon field="status" />
               </th>
             </tr>
           </ng-template>
