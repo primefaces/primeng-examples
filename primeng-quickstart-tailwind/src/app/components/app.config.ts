@@ -453,11 +453,11 @@ export class AppConfig {
     const surfacePalette = this.surfaces.find(
       (s) => s.name === this.selectedSurface()
     )?.palette;
-    $t()
-      .preset(preset)
-      .preset(this.getPresetExt())
-      .surfacePalette(surfacePalette)
-      .use({ useDefaultOptions: true });
+    let builder = $t().preset(preset).preset(this.getPresetExt());
+    if (surfacePalette) {
+      builder = builder.surfacePalette(surfacePalette);
+    }
+    builder.use({ useDefaultOptions: true });
   }
 
   toggleDarkMode() {
