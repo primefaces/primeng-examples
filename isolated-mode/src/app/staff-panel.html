@@ -1,0 +1,33 @@
+<div class="staff">
+    <header class="staff-header">
+        <h2>Staff panel</h2>
+        <p-selectbutton [(ngModel)]="panelColor" [options]="colors" optionLabel="label" [allowEmpty]="false" size="small" (onChange)="changePanelColor($event.value)" />
+    </header>
+    <table>
+        <thead>
+            <tr>
+                <th>Coffee</th>
+                <th>Bags</th>
+                <th>Listed</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of stock; track item.name) {
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td><p-inputnumber [(ngModel)]="item.bags" [min]="0" [inputStyle]="{ width: '4.5rem' }" /></td>
+                    <td><p-toggleswitch [(ngModel)]="item.visible" /></td>
+                    <td><p-button label="Sold out" severity="danger" text size="small" [disabled]="item.bags === 0" (onClick)="soldOut.set(item)" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p-dialog [visible]="soldOut() !== null" (visibleChange)="soldOut.set(null)" modal header="Mark as sold out" [style]="{ width: '24rem' }" appendTo="body">
+        <p>{{ soldOut()?.name }} will be hidden from the shop until you add stock again.</p>
+        <ng-template #footer>
+            <p-button label="Cancel" text (onClick)="soldOut.set(null)" />
+            <p-button label="Mark sold out" severity="danger" (onClick)="markSoldOut()" />
+        </ng-template>
+    </p-dialog>
+</div>

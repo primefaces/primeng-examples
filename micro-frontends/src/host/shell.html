@@ -1,0 +1,10 @@
+<header class="shell-header">
+    <span class="brand">Northside Roasters</span>
+    <nav>
+        @for (remote of remotes; track remote.name) {
+            <button type="button" [attr.aria-current]="current() === remote.name ? 'page' : null" (click)="show(remote.name)">{{ remote.label }}</button>
+        }
+    </nav>
+    <p-button [label]="dark() ? 'Light mode' : 'Dark mode'" severity="secondary" variant="outlined" size="small" (onClick)="toggleDark()" />
+</header>
+<main #outlet class="outlet"></main>

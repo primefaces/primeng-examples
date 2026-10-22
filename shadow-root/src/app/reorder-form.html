@@ -1,0 +1,31 @@
+<form class="reorder-form" (ngSubmit)="placed.set(true)">
+    <div class="field">
+        <label for="coffee">Coffee</label>
+        <p-select [(ngModel)]="coffee" name="coffee" inputId="coffee" [options]="coffees" optionLabel="name" fluid>
+            <ng-template #item let-option>
+                <div class="option">
+                    <span>{{ option.name }}</span>
+                    <small>{{ option.origin }}</small>
+                </div>
+            </ng-template>
+        </p-select>
+    </div>
+    <div class="row">
+        <div class="field">
+            <label for="bags">Bags</label>
+            <p-inputnumber [(ngModel)]="bags" name="bags" inputId="bags" [min]="1" [max]="40" showButtons fluid />
+        </div>
+        <div class="field">
+            <label for="delivery">Delivery</label>
+            <p-datepicker [(ngModel)]="delivery" name="delivery" inputId="delivery" [minDate]="firstDelivery" [disabledDays]="[0, 1, 2, 3, 5, 6]" showIcon fluid />
+        </div>
+    </div>
+    <div class="summary">
+        <span>Total</span>
+        <strong>${{ total() }}</strong>
+    </div>
+    <p-button type="submit" label="Place order" />
+    @if (placed()) {
+        <p-message severity="success">Order placed. {{ bags() }} bags of {{ coffee()?.name }} arrive on {{ deliveryText() }}.</p-message>
+    }
+</form>

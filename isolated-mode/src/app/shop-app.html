@@ -1,0 +1,21 @@
+<div class="shop">
+    <header class="shop-header">
+        <span class="brand">Northside Roasters</span>
+        <p-selectbutton [(ngModel)]="season" [options]="seasons" optionLabel="label" [allowEmpty]="false" (onChange)="changeSeason($event.value)" />
+        <p-button label="Cart ({{ cart() }})" outlined />
+    </header>
+    <h1>This week's coffee</h1>
+    <ul class="coffees">
+        @for (coffee of coffees; track coffee.name) {
+            <li>
+                <div>
+                    <h2>{{ coffee.name }}</h2>
+                    <p>{{ coffee.notes }}</p>
+                </div>
+                <p-tag [value]="coffee.roast" severity="secondary" />
+                <strong>${{ coffee.price }}</strong>
+                <p-button label="Add to cart" (onClick)="addToCart()" />
+            </li>
+        }
+    </ul>
+</div>

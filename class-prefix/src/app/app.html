@@ -1,0 +1,17 @@
+@if (!sent()) {
+    <form class="account-form" (ngSubmit)="sent.set(true)">
+        <label for="name">Business name</label>
+        <input pInputText id="name" name="name" [(ngModel)]="name" placeholder="Little Owl Café" fluid />
+        <label for="email">Email</label>
+        <input pInputText id="email" name="email" [(ngModel)]="email" type="email" placeholder="orders@littleowl.cafe" fluid />
+        <label for="city">City</label>
+        <p-select [(ngModel)]="city" name="city" inputId="city" [options]="cities" placeholder="Choose a city" fluid />
+        <div class="check">
+            <p-checkbox [(ngModel)]="delivery" name="delivery" inputId="delivery" binary />
+            <label for="delivery">Weekly delivery</label>
+        </div>
+        <p-button type="submit" label="Request account" [disabled]="!name() || !email() || !city()" />
+    </form>
+} @else {
+    <p-message severity="success">Thanks, {{ name() }}. We will email {{ email() }} within two working days.</p-message>
+}

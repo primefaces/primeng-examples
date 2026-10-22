@@ -1,0 +1,31 @@
+<section class="customers">
+    <header>
+        <h1>Customers</h1>
+        <p-iconfield>
+            <p-inputicon>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+            </p-inputicon>
+            <input pInputText [(ngModel)]="query" placeholder="Search customers" />
+        </p-iconfield>
+    </header>
+    <ul>
+        @for (customer of filtered(); track customer.name) {
+            <li>
+                <p-avatar [label]="initials(customer.name)" shape="circle" />
+                <div class="who">
+                    <strong>{{ customer.name }}</strong>
+                    <span>{{ customer.contact }}, {{ customer.city }}</span>
+                </div>
+                <label class="weekly">
+                    <p-toggleswitch [(ngModel)]="customer.weekly" />
+                    Weekly delivery
+                </label>
+                <p-button label="Send invoice" severity="secondary" outlined [disabled]="customer.balance === 0" (onClick)="sendInvoice(customer)" />
+            </li>
+        }
+    </ul>
+    @if (filtered().length === 0) {
+        <p class="empty">No customer matches "{{ query() }}".</p>
+    }
+    <p-toast />
+</section>

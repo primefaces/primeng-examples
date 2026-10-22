@@ -1,0 +1,41 @@
+<section class="orders">
+    <header>
+        <h1>Orders</h1>
+        <p-button label="New order" (onClick)="openNew()" />
+    </header>
+    <p-table [value]="orders()" dataKey="id" [paginator]="true" [rows]="5">
+        <ng-template #header>
+            <tr>
+                <th pSortableColumn="id">Order <p-sort-icon field="id" /></th>
+                <th pSortableColumn="cafe">Café <p-sort-icon field="cafe" /></th>
+                <th>Coffee</th>
+                <th pSortableColumn="bags">Bags <p-sort-icon field="bags" /></th>
+                <th>Status</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-order>
+            <tr>
+                <td>#{{ order.id }}</td>
+                <td>{{ order.cafe }}</td>
+                <td>{{ order.coffee }}</td>
+                <td>{{ order.bags }}</td>
+                <td><p-tag [value]="order.status" [severity]="severities[order.status]" /></td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-dialog [(visible)]="visible" modal header="New order" [style]="{ width: '26rem' }">
+        <div class="form">
+            <label for="cafe">Café</label>
+            <p-select [(ngModel)]="draft.cafe" inputId="cafe" [options]="cafes" placeholder="Choose a café" fluid />
+            <label for="coffee">Coffee</label>
+            <p-select [(ngModel)]="draft.coffee" inputId="coffee" [options]="coffees" placeholder="Choose a coffee" fluid />
+            <label for="bags">Bags</label>
+            <p-inputnumber [(ngModel)]="draft.bags" inputId="bags" [min]="1" showButtons fluid />
+        </div>
+        <ng-template #footer>
+            <p-button label="Cancel" text (onClick)="visible.set(false)" />
+            <p-button label="Save order" [disabled]="!draft.cafe || !draft.coffee" (onClick)="save()" />
+        </ng-template>
+    </p-dialog>
+    <p-toast />
+</section>
