@@ -1,59 +1,22 @@
-# PrimengQuickstart
+# PrimeNG with Angular and Tailwind CSS
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.6.
+The same small Angular app as the PrimeNG starter, with Tailwind CSS v4 for the page layout: a top bar with a dark mode switch, a panel that changes the preset and the surface colors, and a dashboard with a chart, a product table and a few stat cards. It uses styled mode with the Aura preset, and `tailwindcss-primeui` lets the Tailwind utilities use the PrimeNG colors.
 
-## Development server
+[Open in StackBlitz](https://stackblitz.com/github/primefaces/primeng-examples/tree/main/primeng-quickstart-tailwind)
 
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Run it
 
 ```bash
-ng generate component component-name
+npm install
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Then open [http://localhost:4200](http://localhost:4200).
 
-```bash
-ng generate --help
-```
+## Where to look
 
-## Building
+- `src/tailwind.css` imports Tailwind and `tailwindcss-primeui`, and maps the `dark` variant to `.p-dark`.
+- `.postcssrc.json` adds the Tailwind PostCSS plugin.
+- `src/app/app.config.ts` sets up PrimeNG with `providePrimeNG` and the Aura preset.
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Read more in the [PrimeNG Tailwind guide](https://primeng.dev/tailwind).
